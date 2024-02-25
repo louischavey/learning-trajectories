@@ -6,11 +6,21 @@ import csv
 from datetime import datetime
 import logging.handlers
 
-# put the path to the input file, or a folder of files to process all of
-input_file = open(sys.argv[1], 'r')
+# INPUT METHOD 1: ARGV
+input_file = open(sys.argv[1], 'r', encoding='cp850')  # this returns a textiowrapper obj
+print(sys.argv[1])
+print(input_file)
+print(type(input_file))
 input_file_name = os.path.split(sys.argv[1])[1]
-# put the name or path to the output file. The file extension from below will be added automatically. If the input file is a folder, the output will be treated as a folder as well
+print(type(input_file_name))
+print(input_file_name)
 output_file = f'{os.path.splitext(input_file_name)[0]}'
+
+# INPUT METHOD 2: STDIN
+# input_file = open(sys.stdin.realine().strip())
+# input_file_name = os.path.split(input_file.name)[1]
+# output_file = f'{os.path.splitext(input_file_name)[0]}'
+
 # the format to output in, pick from the following options
 #   zst: same as the input, a zstandard compressed ndjson file. Can be read by the other scripts in the repo
 #   txt: an ndjson file, which is a text file with a separate json object on each line. Can be opened by any text editor
@@ -186,12 +196,12 @@ def process_file(input_file, output_file, output_format, field, values, from_dat
 		log.error(f"Unsupported output format {output_format}")
 		sys.exit()
 
-	file_size = os.stat(input_file).st_size
+	file_size = os.stat(input_file.name).st_size
 	created = None
 	matched_lines = 0
 	bad_lines = 0
 	total_lines = 0
-	for line, file_bytes_processed in read_lines_zst(input_file):
+	for line, file_bytes_processed in read_lines_zst(input_file.name):
 		total_lines += 1
 		if total_lines % 100000 == 0:
 			log.info(f"{created.strftime('%Y-%m-%d %H:%M:%S')} : {total_lines:,} : {matched_lines:,} : {bad_lines:,} : {file_bytes_processed:,}:{(file_bytes_processed / file_size) * 100:.0f}%")
@@ -271,13 +281,13 @@ if __name__ == "__main__":
 	log.info(f"Output format set to {output_format}")
 
 	input_files = []
-	if os.path.isdir(input_file):
+	if os.path.isdir(input_file.name):
 		if not os.path.exists(output_file):
 			os.makedirs(output_file)
-		for file in os.listdir(input_file):
+		for file in os.listdir(input_file.name):
 			if not os.path.isdir(file) and file.endswith(".zst"):
 				input_name = os.path.splitext(os.path.splitext(os.path.basename(file))[0])[0]
-				input_files.append((os.path.join(input_file, file), os.path.join(output_file, input_name)))
+				input_files.append((os.path.join(input_file.name, file), os.path.join(output_file, input_name)))
 	else:
 		input_files.append((input_file, output_file))
 	log.info(f"Processing {len(input_files)} files")

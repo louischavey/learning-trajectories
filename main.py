@@ -23,23 +23,18 @@ def success():
 		file_copy = f"{os.path.splitext(f.filename)[0]}_copy{os.path.splitext(f.filename)[1]}"
 		shutil.copy2(os.path.realpath(f.filename), os.path.realpath(file_copy))
 		os.remove(f.filename)
-		return render_template("ACK_reupload.html", name = f.filename)
+		return render_template("ACK_run.html", name = f.filename)
 
 @app.route('/run', methods = ['POST'])
 def run():
 	script = request.form.get('script_filename')
 	if os.path.isfile(script):
-		#return script
-		# path = 'run.py'
-		# spawn subprocess w/ default input of physics_comments
-		#try:
-		subprocess.run(["python", script], shell=True, check=True)
-			# output = subprocess.check_output(['python', 'run.py'], stderr=subprocess.STDOUT, universal_newlines=True)
-			# return jsonify({"output": output}), 200
-		return render_template("ACK_run.html", name = script)
-		#except subprocess.CalledProcessError as e:
-		# 	return jsonify({'error':f'Script execution failed: {e.output}'}, 500)	
-		# create a new output file
+		with open("Physics_submissions.zst", 'r') as f:
+			try:
+				subprocess.run(["python", script], stdin=f, shell=True, check=True)
+				return render_template("ACK_run.html", name = script)
+			except subprocess.CalledProcessError as e:
+				return render_template("error.html", message=f"Error running script: {e}")
 
 if __name__ == '__main__': 
 	app.run(debug=True)
