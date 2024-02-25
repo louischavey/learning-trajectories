@@ -1,15 +1,17 @@
 TO-DO:
-* SUBGOAL 1: Get the basic functionality on a FLASK server -- 2/10-2/16
+* SUBGOAL 1: Get the basic functionality on a FLASK server -- 2/10-2/23
     * Feature 1: Set up files and scripts in server - DONE 2/15
         * Add in continuous loop of file uploading - DONE 2/15
         * Make a copy of the uploaded file so that we don't edit the local copy - DONE 2/15
     * Feature 2: Run scripts on files and store output remotely
         * Choose program to run thru typing in file name - DONE 2/16
-        * Edit all existing .ipynb files:
-            * They're actual scripts
-            * We can enter parameters
-            * They create a graph output
-        * Display which scripts are currently in the directory
+        * Edit all existing .ipynb files so that they're scripts that can take command line inputs and output graphs - DONE 2/24 
+            * Display which scripts are currently in the directory
+        * Give input to scripts thru dashboard interface
+            1. Find out how to pass a CL input thru code and/or backend (assume just 1 input to a script for now)
+            2. Figure out how many inputs a script needs
+            3. Generate a template to enter inputs (need to be able to repeat code to generate multiple boxes/not hard code each box)
+            4. Plug in the functionality from item #1
 * SUBGOAL 2: Make a nicer frontend (move to REACT/tailwind) and make any frontend-enabled functionality improvements -- 2/17-2/23
     * Feature 2: Run script from a dropdown
 * SUBGOAL 3: Run this on Prof. Sherin's server (and/or QUEST?) -- 2/24-3/1
@@ -19,4 +21,6 @@ TO-DO:
         * Security considerations?
     * Feature 4: Progress bar on jobs
     * Feature 1: Drag and drop
+* SUBGOAL 5: Server would issue instructions to QUEST (if server is basically the same speed as QUEST)
+    * 
     
