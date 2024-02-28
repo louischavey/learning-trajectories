@@ -29,12 +29,12 @@ def success():
 def run():
 	script = request.form.get('script_filename')
 	if os.path.isfile(script):
-		with open("Physics_submissions.zst", 'r') as f:
-			try:
-				subprocess.run(["python", script], stdin=f, shell=True, check=True)
-				return render_template("ACK_run.html", name = script)
-			except subprocess.CalledProcessError as e:
-				return render_template("error.html", message=f"Error running script: {e}")
+		# with open("Physics_submissions.zst", 'r') as f:
+			# try:
+		subprocess.run(["python", script], input='physics_submissions.csv\nphysics_comments.csv', shell=True, text=True, check=True)
+		return render_template("ACK_run.html", name = script)
+		# except subprocess.CalledProcessError as e:
+		# 	return render_template("error.html", message=f"Error running script: {e}")
 
 if __name__ == '__main__': 
 	app.run(debug=True)

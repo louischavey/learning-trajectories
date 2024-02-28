@@ -8,9 +8,11 @@ TO-DO:
         * Edit all existing .ipynb files so that they're scripts that can take command line inputs and output graphs - DONE 2/24 
             * Display which scripts are currently in the directory
         * Give input to scripts thru dashboard interface
-            1. Find out how to pass a CL input thru code and/or backend (assume just 1 input to a script for now)
+            1. Find out how to pass a CL input thru code and/or backend (assume just 1 input to a script for now) -- DONE 2/28
+                * Hypothesis for why this isn't working: The way that I'm passing input into script isn't compatible with posting information from user to server thru dashboard
             2. Figure out how many inputs a script needs
-            3. Generate a template to enter inputs (need to be able to repeat code to generate multiple boxes/not hard code each box)
+                * Problem: Unable to pass multiple inputs
+            3. Generate a template to enter inputs (need to be able to repeat code to generate multiple boxes/not hard code each box) so that file names aren't hard-coded
             4. Plug in the functionality from item #1
 * SUBGOAL 2: Make a nicer frontend (move to REACT/tailwind) and make any frontend-enabled functionality improvements -- 2/17-2/23
     * Feature 2: Run script from a dropdown
